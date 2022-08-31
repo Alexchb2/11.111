@@ -1,30 +1,51 @@
 public class Radio {
+
+    private int minNumberRadio = 0;
+    private int maxNumberRadio;
     private int numberRadio;
+    private int minCurrentVolume = 0;
+    private int maxCurrentVolume = 100;
     private int currentVolume;
+
+    public Radio(){
+        maxNumberRadio = 9;
+    }
+
+    public Radio(int size){
+        maxNumberRadio = minNumberRadio + size - 1;
+    }
 
     public int getCurrentVolume() {
         return currentVolume;
     }
 
+    public int getMinNumberRadio(){
+        return minNumberRadio;
+    }
+
+    public int getMaxNumberRadio(){
+        return maxNumberRadio;
+    }
+
     public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume < 0) {
-            newCurrentVolume = 0;
+        if (newCurrentVolume < minCurrentVolume) {
+            newCurrentVolume = minCurrentVolume;
         }
-        if (newCurrentVolume > 10) {
-            newCurrentVolume = 10;
+        if (newCurrentVolume > maxCurrentVolume) {
+            newCurrentVolume = maxCurrentVolume;
         }
         currentVolume = newCurrentVolume;
     }
 
     public void increaseVolume() {
-        if (currentVolume < 10) {
+        if (currentVolume < maxCurrentVolume) {
             int target = currentVolume + 1;
             setCurrentVolume(target);
         }
     }
 
     public void decreaseVolume() {
-        if (currentVolume > 0) {
+        if (currentVolume > minCurrentVolume) {
             int target = currentVolume - 1;
             setCurrentVolume(target);
         }
@@ -38,15 +59,14 @@ public class Radio {
         if (newNumberRadio < 0) {
             newNumberRadio = -1;
         }
-        if (newNumberRadio > 9) {
-            newNumberRadio = 9;
+        if (newNumberRadio > maxNumberRadio) {
+            newNumberRadio = maxNumberRadio;
         }
         numberRadio = newNumberRadio;
     }
 
     public void nextRadio() {
-
-        if (numberRadio >= 9) {
+        if (numberRadio >= maxNumberRadio) {
             numberRadio = 0;
         }
         else {
@@ -56,9 +76,8 @@ public class Radio {
     }
 
     public void prevRadio() {
-
         if (numberRadio <= 0) {
-            numberRadio = 9;
+            numberRadio = maxNumberRadio;
         }
         else {
             int target = numberRadio - 1;
